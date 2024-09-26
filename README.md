@@ -1,6 +1,6 @@
 # Linear Regression From Scratch
 
-In this project, I will apply the techniques in this [video](https://www.youtube.com/watch?v=PxkzRL0LavU) to this [dataset](https://www.kaggle.com/datasets/yasserh/advertising-sales-dataset).
+In this project, I will apply the techniques described in this [video](https://www.youtube.com/watch?v=PxkzRL0LavU) to this [dataset](https://www.kaggle.com/datasets/yasserh/advertising-sales-dataset).
 
 ## Goals:
 
