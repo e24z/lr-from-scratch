@@ -1,23 +1,41 @@
 # We will use pandas for data analysis/manipulation and matplotlib for data visualisation.
 import pandas as pd
 import matplotlib.pyplot as plt
+# plt will not be necessary in final version i.e. a composable data analysis library
 
 data = pd.read_csv('./sales-data.csv')
 
-def mean_squared_error(m, b, points):
-    """
-        Description:
-            The loss function. This will quantify the error between my model and the actual values in sales_data.csv.
-        Parameters:
-            m: the gradient
-            b: the intercept
-            points: the actual values from the sales dataset.
-        Returns:
-            float: the mean squared error.
-    """
+def mean_squared_error(beta_0, beta_1, points) -> float:
     total_error = 0
+
     for i in range(len(points)):
         x = points.iloc[i].tv
         y = points.iloc[i].sales
-        total_error += (y - (m * x + b)) ** 2
+        total_error += (y - (beta_1 * x + beta_0)) ** 2
+
     return total_error / float(len(points))
+
+def gradient_descent(points, iterations, learning_rate) -> tuple:
+    beta_0 = 0
+    beta_1 = 0 
+    errors = []
+    n = float(len(points))
+
+    for i in range(iterations):
+        grad_beta_0 = 0
+        grad_beta_1 = 0
+
+        for j in range (len(points)):
+            x = points.iloc[j].tv
+            y = points.iloc[j].sales
+            grad_beta_0 += -(2/n) * (y - (beta_1 * x + beta_0))
+            grad_beta_1 += -(2/n) * x * (y - (beta_1 * x + beta_0))
+
+        beta_0 = beta_0 - learning_rate * grad_beta_0
+        beta_1 = beta_1 - learning_rate * grad_beta_1
+        print(f"{beta_0}, {beta_1}")
+    
+    return (beta_0, beta_1)
+            
+print(gradient_descent(data, 2000, 0.001))
+print('Hello, you should only be seeing this after the parameters')
