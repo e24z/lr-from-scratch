@@ -15,10 +15,9 @@ def mean_squared_error(beta_0, beta_1, points) -> float:
 
     return total_error / float(len(points))
 
-def gradient_descent(points, iterations, learning_rate) -> tuple:
+def gradient_descent(points, iterations, learning_rate):
     beta_0 = 0
     beta_1 = 0 
-    errors = []
     n = float(len(points))
 
     for i in range(iterations):
@@ -33,9 +32,14 @@ def gradient_descent(points, iterations, learning_rate) -> tuple:
 
         beta_0 = beta_0 - learning_rate * grad_beta_0
         beta_1 = beta_1 - learning_rate * grad_beta_1
-        print(f"{beta_0}, {beta_1}")
     
     return (beta_0, beta_1)
-            
-print(gradient_descent(data, 2000, 0.001))
+
+beta_0, beta_1 = gradient_descent(data, 2000, 0.00001)
 print('Hello, you should only be seeing this after the parameters')
+
+plt.scatter(data.tv, data.sales)
+y_pred = beta_1 * data.tv + beta_0
+plt.plot(data.tv, y_pred, color='red', label='Regression Line')
+plt.show()
+
