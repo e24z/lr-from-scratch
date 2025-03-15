@@ -1,6 +1,7 @@
 # We will use pandas for data analysis/manipulation and matplotlib for data visualisation.
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.metrics import r2_score
 # plt will not be necessary in final version i.e. a composable data analysis library
 
 data = pd.read_csv('./sales-data.csv')
@@ -36,7 +37,11 @@ def gradient_descent(points, iterations, learning_rate):
     return (beta_0, beta_1)
 
 beta_0, beta_1 = gradient_descent(data, 2000, 0.00001)
-print('Hello, you should only be seeing this after the parameters')
+
+y_actual = data.sales
+y_pred = beta_1 * data.tv + beta_0
+r2 = r2_score(y_actual, y_pred)
+print(f"R² Score: {r2:.4f}")
 
 plt.scatter(data.tv, data.sales)
 y_pred = beta_1 * data.tv + beta_0
